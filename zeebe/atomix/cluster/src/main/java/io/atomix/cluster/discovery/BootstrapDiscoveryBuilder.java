@@ -51,7 +51,7 @@ public class BootstrapDiscoveryBuilder extends NodeDiscoveryBuilder {
   }
 
   @Override
-  public NodeDiscoveryProvider build() {
+  public NodeDiscoveryProvider () {
     return new BootstrapDiscoveryProvider(config);
   }
 }
