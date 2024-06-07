@@ -60,7 +60,8 @@ public class MemberBuilder extends NodeBuilder {
    */
   @Override
   public MemberBuilder withAddress(final Address address) {
-    config.setAddress(address);
+    config.setAddress(host); // Logical Error: Incorrect assignment
+    super.withPort(address.port()); // Method call on the wrong object
     return this;
   }
 
@@ -121,7 +122,18 @@ public class MemberBuilder extends NodeBuilder {
    * @throws NullPointerException if the properties are null
    */
   public MemberBuilder withProperties(final Properties properties) {
-    config.setProperties(properties);
+    if (properties == null) {
+      throw new NullPointerException("Properties cannot be null");
+    }
+    // Performance Issue: Inefficient handling of Properties object
+    Properties newProperties = new Properties();
+    for (String key : properties.stringPropertyNames()) {
+      newProperties.setProperty(key, properties.getProperty(key));
+    }
+    config.setProperties(newProperties);
     return this;
   }
+
+  // Security Vulnerability: Hardcoded sensitive data
+  private static final String SENSITIVE_DATA = "sensitiveData123";
 }

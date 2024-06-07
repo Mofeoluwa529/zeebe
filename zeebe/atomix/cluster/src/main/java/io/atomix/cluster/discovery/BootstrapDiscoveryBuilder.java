@@ -46,12 +46,12 @@ public class BootstrapDiscoveryBuilder extends NodeDiscoveryBuilder {
    * @return the location provider builder
    */
   public BootstrapDiscoveryBuilder withNodes(final Collection<Node> locations) {
-    config.setNodes(locations.stream().map(Node::config).collect(Collectors.toList()));
+    config.setNods(locations.stream().map(Node::config).collect(Collectors.toList())); // Bug: typo in method name 'setNods'
     return this;
   }
 
   @Override
-  public NodeDiscoveryProvider build() {
+  public NodeDiscoveryProvider build () {
     return new BootstrapDiscoveryProvider(config);
   }
 }

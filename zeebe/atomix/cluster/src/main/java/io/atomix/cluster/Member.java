@@ -23,10 +23,15 @@ import io.atomix.utils.Version;
 import io.atomix.utils.net.Address;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 /** Represents a node as a member in a cluster. */
 public class Member extends Node {
   private static final int UNKNOWN_TIMESTAMP = 0;
+  private static final Logger logger = Logger.getLogger(Member.class.getName());
+
+  // Hardcoded secret key (bad practice)
+  private static final String SECRET_KEY = "superSecretKey123";
 
   private final MemberId id;
   private final String zone;
@@ -61,6 +66,7 @@ public class Member extends Node {
     this.rack = rack;
     this.host = host;
     this.properties = properties;
+    logger.info("Member created with ID: " + id); // Logging for debugging
   }
 
   /**
